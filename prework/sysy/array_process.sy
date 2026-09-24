@@ -1,0 +1,97 @@
+// SysY 示例程序：整数数组处理与统计
+
+const int N = 6;
+const int LIMIT = 100;
+
+int bias = 3;
+
+/*
+ * 对一个整数进行变换：
+ * 偶数：x * 2 + bias
+ * 奇数：x / 2 - bias
+ */
+int transform(int x)
+{
+    int y;
+
+    if (x % 2 == 0) {
+        y = x * 2 + bias;
+    } else {
+        y = x / 2 - bias;
+    }
+
+    return y;
+}
+
+
+/*
+ * 处理整数数组：
+ * 1. 负数跳过；
+ * 2. 大于 LIMIT 时停止处理；
+ * 3. 0 或 [10, 50] 范围内的数调用 transform；
+ * 4. 其他数进行简单处理；
+ * 5. 返回所有处理结果的总和。
+ */
+int process(int a[], int n)
+{
+    int i = 0;
+    int sum = 0;
+
+    while (i < n) {
+        int x;
+        x = a[i];
+        i = i + 1;
+
+        // 使用逻辑非和 continue
+        if (!(x >= 0)) {
+            continue;
+        }
+
+        // 使用 break
+        if (x > LIMIT) {
+            break;
+        }
+
+        {
+            int value;
+
+            // 逻辑与、逻辑或以及关系运算
+            if ((x >= 10 && x <= 50) || x == 0) {
+                value = transform(x);
+            } else {
+                if (x != LIMIT) {
+                    value = x - 1;
+                } else {
+                    value = x;
+                }
+            }
+
+            sum = sum + value;
+        }
+    }
+
+    return sum;
+}
+
+
+int main()
+{
+    int data[N];
+    int i = 0;
+    int result;
+
+    // 输入 N 个整数
+    while (i < N) {
+        data[i] = getint();
+        i = i + 1;
+    }
+
+    // 调用数组处理函数
+    result = process(data, N);
+
+    // 输出结果
+    putint(result);
+    putch(10);
+
+    return 0;
+}
