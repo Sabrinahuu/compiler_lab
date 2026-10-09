@@ -1,0 +1,633 @@
+Script started on 2026-10-08 16:46:33+08:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="120" LINES="30"]
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ readelf -h fib.o
+[?2004lELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 
+  Class:                             ELF64
+  Data:                              2's complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              REL (Relocatable file)
+  Machine:                           Advanced Micro Devices X86-64
+  Version:                           0x1
+  Entry point address:               0x0
+  Start of program headers:          0 (bytes into file)
+  Start of section headers:          2728 (bytes into file)
+  Flags:                             0x0
+  Size of this header:               64 (bytes)
+  Size of program headers:           0 (bytes)
+  Number of program headers:         0
+  Size of section headers:           64 (bytes)
+  Number of section headers:         16
+  Section header string table index: 15
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ./fib
+[?2004l=== Fibonacci Comparison Program ===
+Valid input range: 0 ~ 92
+Enter n: 10
+Recursive result: 55
+Iterative result: 55
+Recursive function calls: 177
+The two implementations produce the same result.
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -v fib.c -o fib_v 2>&1 | grep -E "cc1|^ as |collect2" | cut -c1-200
+[?2004l /usr/lib/gcc/x86_64-linux-gnu/11/cc1 -quiet -v -imultiarch x86_64-linux-gnu fib.c -quiet -dumpdir fib_v- -dumpbase fib.c -dumpbase-ext .c -mtune=generic -march=x86-64 -version -fasynchronous-unwind-t
+ as -v --64 -o /tmp/ccpfCcI9.o /tmp/cc5e8rM1.s
+ /usr/lib/gcc/x86_64-linux-gnu/11/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/11/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/11/lto-wrapper -plugin-opt=-fresolution=/tmp/ccYhonuW.res
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ld fib.o -o fib_bad
+[?2004lld: warning: cannot find entry symbol _start; defaulting to 0000000000401000
+ld: fib.o: in function `print_program_info':
+fib.c:(.text+0x22): undefined reference to `printf'
+ld: fib.c:(.text+0x40): undefined reference to `printf'
+ld: fib.o: in function `main':
+fib.c:(.text+0x12e): undefined reference to `printf'
+ld: fib.c:(.text+0x149): undefined reference to `__isoc99_scanf'
+ld: fib.c:(.text+0x176): undefined reference to `printf'
+ld: fib.c:(.text+0x1c1): undefined reference to `printf'
+ld: fib.c:(.text+0x1e6): undefined reference to `printf'
+ld: fib.c:(.text+0x204): undefined reference to `printf'
+ld: fib.c:(.text+0x21d): undefined reference to `puts'
+ld: fib.c:(.text+0x22e): undefined reference to `puts'
+ld: fib.c:(.text+0x247): undefined reference to `__stack_chk_fail'
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -v fib.o -o fib_v 2>&1 | grep collect2 | tr ' ' '\n' | grep -E "crt|\.o$|-l"
+[?2004l/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/collect2
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/liblto_plugin.so
+-plugin-opt=/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/lto-wrapper
+-plugin-opt=-pass-through=[01;31m[K-l[m[Kgcc
+-plugin-opt=-pass-through=[01;31m[K-l[m[Kgcc_s
+-plugin-opt=-pass-through=[01;31m[K-l[m[Kc
+-plugin-opt=-pass-through=[01;31m[K-l[m[Kgcc
+-plugin-opt=-pass-through=[01;31m[K-l[m[Kgcc_s
+-dynamic[01;31m[K-l[m[Kinker
+/lib64/ld[01;31m[K-l[m[Kinux-x86-64.so.2
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../../x86_64[01;31m[K-l[m[Kinux-gnu/S[01;31m[Kcrt[m[K1[01;31m[K.o[m[K
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../../x86_64[01;31m[K-l[m[Kinux-gnu/[01;31m[Kcrt[m[Ki[01;31m[K.o[m[K
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/[01;31m[Kcrt[m[KbeginS[01;31m[K.o[m[K
+-L/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11
+-L/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../../x86_64[01;31m[K-l[m[Kinux-gnu
+-L/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../../../lib
+-L/lib/x86_64[01;31m[K-l[m[Kinux-gnu
+-L/usr/lib/x86_64[01;31m[K-l[m[Kinux-gnu
+-L/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../..
+fib[01;31m[K.o[m[K
+[01;31m[K-l[m[Kgcc
+[01;31m[K-l[m[Kgcc_s
+[01;31m[K-l[m[Kc
+[01;31m[K-l[m[Kgcc
+[01;31m[K-l[m[Kgcc_s
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/[01;31m[Kcrt[m[KendS[01;31m[K.o[m[K
+/usr/lib/gcc/x86_64[01;31m[K-l[m[Kinux-gnu/11/../../../x86_64[01;31m[K-l[m[Kinux-gnu/[01;31m[Kcrt[m[Kn[01;31m[K.o[m[K
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ cat > fibfunc.c <<'EOF'
+[?2004l[?2004h> long long fib_iterative(int n){
+[?2004l[?2004h>     if (n <= 1) return n;
+[?2004l[?2004h>     long long a = 0, b = 1;
+[?2004l[?2004h>     for (int i = 2; i <= n; i++) { long long next = a + b; a = b; b = next; }
+[?2004l[?2004h>     return b;
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ 
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ cat > main2.c <<'EOF'
+[?2004l[?2004h> #include <stdio.h>
+[?2004l[?2004h> long long fib_iterative(int n);
+[?2004l[?2004h> int main(void){ printf("%lld\n", fib_iterative(10)); return 0; }
+[?2004l[?2004h> EOF
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -c fibfunc.c -o fibfunc.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -c main2.c   -o main2.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc main2.o fibfunc.o -o app
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ./app
+[?2004l55
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ nm main2.o
+[?2004l                 U fib_iterative
+0000000000000000 T main
+                 U printf
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -dr main2.o | grep -A1 "call"
+[?2004l   d:	e8 00 00 00 00       	[01;31m[Kcall[m[K   12 <main+0x12>
+			e: R_X86_64_PLT32	fib_iterative-0x4
+[36m[K--[m[K
+  24:	e8 00 00 00 00       	[01;31m[Kcall[m[K   29 <main+0x29>
+			25: R_X86_64_PLT32	printf-0x4
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ nm fibfunc.o | grep fib_iterative
+[?2004l0000000000000000 T [01;31m[Kfib_iterative[m[K
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -d app | grep -A14 "<main>:"
+[?2004l0000000000001149 [01;31m[K<main>:[m[K
+    1149:	f3 0f 1e fa          	endbr64 
+    114d:	55                   	push   %rbp
+    114e:	48 89 e5             	mov    %rsp,%rbp
+    1151:	bf 0a 00 00 00       	mov    $0xa,%edi
+    1156:	e8 1e 00 00 00       	call   1179 <fib_iterative>
+    115b:	48 89 c6             	mov    %rax,%rsi
+    115e:	48 8d 05 9f 0e 00 00 	lea    0xe9f(%rip),%rax        # 2004 <_IO_stdin_used+0x4>
+    1165:	48 89 c7             	mov    %rax,%rdi
+    1168:	b8 00 00 00 00       	mov    $0x0,%eax
+    116d:	e8 de fe ff ff       	call   1050 <printf@plt>
+    1172:	b8 00 00 00 00       	mov    $0x0,%eax
+    1177:	5d                   	pop    %rbp
+    1178:	c3                   	ret    
+
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ nm app | grep -E "fib_iterative|main"
+[?2004l                 U __libc_start_[01;31m[Kmain[m[K@GLIBC_2.34
+0000000000001179 T [01;31m[Kfib_iterative[m[K
+0000000000001149 T [01;31m[Kmain[m[K
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc main2.o -o bad_undef
+[?2004l/usr/bin/ld: main2.o: in function `main':
+main2.c:(.text+0xe): undefined reference to `fib_iterative'
+collect2: error: ld returned 1 exit status
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ 
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ cp fibfunc.c fibfunc2.c
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -c fibfunc2.c -o fibfunc2.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc main2.o fibfunc.o fibfunc2.o -o bad_dup
+[?2004l/usr/bin/ld: fibfunc2.o: in function `fib_iterative':
+fibfunc2.c:(.text+0x0): multiple definition of `fib_iterative'; fibfunc.o:fibfunc.c:(.text+0x0): first defined here
+collect2: error: ld returned 1 exit status
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ readelf -h fib | grep -E "Type|Entry"
+[?2004l  [01;31m[KType[m[K:                              DYN (Position-Independent Executable file)
+  [01;31m[KEntry[m[K point address:               0x10c0
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ readelf -S fib | grep -E "\.text|\.plt|\.got|\.dynamic|\.init" [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K"
+[?2004l  [11] .rela[01;31m[K.plt[m[K         RELA             00000000000006d0  000006d0
+  [12] [01;31m[K.init[m[K             PROGBITS         0000000000001000  00001000
+  [13] [01;31m[K.plt[m[K              PROGBITS         0000000000001020  00001020
+  [14] [01;31m[K.plt[m[K[01;31m[K.got[m[K          PROGBITS         0000000000001070  00001070
+  [15] [01;31m[K.plt[m[K.sec          PROGBITS         0000000000001080  00001080
+  [16] [01;31m[K.text[m[K             PROGBITS         00000000000010c0  000010c0
+  [21] [01;31m[K.init[m[K_array       INIT_ARRAY       0000000000003da0  00002da0
+  [23] [01;31m[K.dynamic[m[K          DYNAMIC          0000000000003db0  00002db0
+  [24] [01;31m[K.got[m[K              PROGBITS         0000000000003fa0  00002fa0
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ readelf -l fib | head -30
+[?2004l
+Elf file type is DYN (Position-Independent Executable file)
+Entry point 0x10c0
+There are 13 program headers, starting at offset 64
+
+Program Headers:
+  Type           Offset             VirtAddr           PhysAddr
+                 FileSiz            MemSiz              Flags  Align
+  PHDR           0x0000000000000040 0x0000000000000040 0x0000000000000040
+                 0x00000000000002d8 0x00000000000002d8  R      0x8
+  INTERP         0x0000000000000318 0x0000000000000318 0x0000000000000318
+                 0x000000000000001c 0x000000000000001c  R      0x1
+      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]
+  LOAD           0x0000000000000000 0x0000000000000000 0x0000000000000000
+                 0x0000000000000730 0x0000000000000730  R      0x1000
+  LOAD           0x0000000000001000 0x0000000000001000 0x0000000000001000
+                 0x0000000000000405 0x0000000000000405  R E    0x1000
+  LOAD           0x0000000000002000 0x0000000000002000 0x0000000000002000
+                 0x00000000000002a0 0x00000000000002a0  R      0x1000
+  LOAD           0x0000000000002da0 0x0000000000003da0 0x0000000000003da0
+                 0x0000000000000278 0x0000000000000288  RW     0x1000
+  DYNAMIC        0x0000000000002db0 0x0000000000003db0 0x0000000000003db0
+                 0x00000000000001f0 0x00000000000001f0  RW     0x8
+  NOTE           0x0000000000000338 0x0000000000000338 0x0000000000000338
+                 0x0000000000000030 0x0000000000000030  R      0x8
+  NOTE           0x0000000000000368 0x0000000000000368 0x0000000000000368
+                 0x0000000000000044 0x0000000000000044  R      0x4
+  GNU_PROPERTY   0x0000000000000338 0x0000000000000338 0x0000000000000338
+                 0x0000000000000030 0x0000000000000030  R      0x8
+  GNU_EH_FRAME   0x0000000000002144 0x0000000000002144 0x0000000000002144
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -d fib | grep -A8 "<_start>:"
+[?2004l00000000000010c0 [01;31m[K<_start>:[m[K
+    10c0:	f3 0f 1e fa          	endbr64 
+    10c4:	31 ed                	xor    %ebp,%ebp
+    10c6:	49 89 d1             	mov    %rdx,%r9
+    10c9:	5e                   	pop    %rsi
+    10ca:	48 89 e2             	mov    %rsp,%rdx
+    10cd:	48 83 e4 f0          	and    $0xfffffffffffffff0,%rsp
+    10d1:	50                   	push   %rax
+    10d2:	54                   	push   %rsp
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ldd fib
+[?2004l	linux-vdso.so.1 (0x00007836946cd000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000783694400000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007836946cf000)
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ nm -D fib | grep -E "printf|scanf|puts"
+[?2004l                 U __isoc99_[01;31m[Kscanf[m[K@GLIBC_2.7
+                 U [01;31m[Kprintf[m[K@GLIBC_2.2.5
+                 U [01;31m[Kputs[m[K@GLIBC_2.2.5
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -static fib.c -o fib_static
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ls -l fib fib_static
+[?2004l-rwxr-xr-x 1 enovo enovo   16304 Sep 24 20:40 [0m[01;32mfib[0m
+-rwxr-xr-x 1 enovo enovo 1035016 Oct  8 16:48 [01;32mfib_static[0m
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ ldd fib_static
+[?2004l	not a dynamic executable
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ file fib fib_static
+[?2004lfib:        ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=bf9834366508faaa2f8d6644c559c7f3351fe4e0, for GNU/Linux 3.2.0, not stripped
+fib_static: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, BuildID[sha1]=a359a3858dceee7e20752dd7d0a49db6a767ae8d, for GNU/Linux 3.2.0, not stripped
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ exit
+[?2004lexit
+
+Script done on 2026-10-08 16:48:35+08:00 [COMMAND_EXIT_CODE="0"]
+Script started on 2026-10-08 16:51:44+08:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="120" LINES="30"]
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -O0 -c fib.c -o fib_O0.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -O2 -c fib.c -o fib_O2.o
+[?2004l[01m[Kfib.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[Kfib.c:106:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Kscanf[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+  106 |     [01;35m[Kscanf("%d", &n)[m[K;
+      |     [01;35m[K^~~~~~~~~~~~~~~[m[K
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ size fib_O0.o fib_O2.o
+[?2004l   text	   data	    bss	    dec	    hex	filename
+   1096	      8	      8	   1112	    458	fib_O0.o
+   1955	      8	      8	   1971	    7b3	fib_O2.o
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ nm fib_O0.o; echo ---; nm fib_O2.o
+[?2004l                 U __isoc99_scanf
+                 U __stack_chk_fail
+000000000000009c T fib_iterative
+0000000000000047 T fib_recursive
+00000000000000fe T main
+0000000000000000 T print_program_info
+                 U printf
+0000000000000000 D program_name
+                 U puts
+0000000000000000 B recursive_calls
+---
+0000000000000000 r .LC0
+000000000000000c r .LC1
+0000000000000088 r .LC10
+0000000000000028 r .LC2
+0000000000000032 r .LC3
+0000000000000000 r .LC4
+0000000000000035 r .LC5
+000000000000003f r .LC6
+0000000000000050 r .LC7
+0000000000000030 r .LC8
+0000000000000050 r .LC9
+                 U __isoc99_scanf
+                 U __printf_chk
+                 U __stack_chk_fail
+0000000000000410 T fib_iterative
+0000000000000040 T fib_recursive
+0000000000000000 T main
+0000000000000000 T print_program_info
+0000000000000000 D program_name
+                 U puts
+0000000000000000 B recursive_calls
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -d fib_O2.o | grep -c "call"
+[?2004l13
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -d fib_O0.o | grep -c "call"
+[?2004l16
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc fib.o -Wl,-Map=fib.map -o fib_map
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ grep -n -A12 "^\.text" fib.map
+[?2004l[32m[K176[m[K[36m[K:[m[K[01;31m[K.text[m[K           0x00000000000010c0      0x336
+[32m[K177[m[K[36m[K-[m[K *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+[32m[K178[m[K[36m[K-[m[K *(.text.exit .text.exit.*)
+[32m[K179[m[K[36m[K-[m[K *(.text.startup .text.startup.*)
+[32m[K180[m[K[36m[K-[m[K *(.text.hot .text.hot.*)
+[32m[K181[m[K[36m[K-[m[K *(SORT_BY_NAME(.text.sorted.*))
+[32m[K182[m[K[36m[K-[m[K *(.text .stub .text.* .gnu.linkonce.t.*)
+[32m[K183[m[K[36m[K-[m[K .text          0x00000000000010c0       0x26 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/Scrt1.o
+[32m[K184[m[K[36m[K-[m[K                0x00000000000010c0                _start
+[32m[K185[m[K[36m[K-[m[K .text          0x00000000000010e6        0x0 /usr/lib/gcc/x86_64-linux-gnu/11/../../../x86_64-linux-gnu/crti.o
+[32m[K186[m[K[36m[K-[m[K *fill*         0x00000000000010e6        0xa 
+[32m[K187[m[K[36m[K-[m[K .text          0x00000000000010f0       0xb9 /usr/lib/gcc/x86_64-linux-gnu/11/crtbeginS.o
+[32m[K188[m[K[36m[K-[m[K .text          0x00000000000011a9      0x24d fib.o
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ gcc -g -c fib.c -o fib_g.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ objdump -dS fib_g.o | head -80
+[?2004l
+fib_g.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <print_program_info>:
+
+/* ---------- 函数定义 ---------- */
+
+/* 输出程序名称以及允许的输入范围 */
+void print_program_info(void)
+{
+   0:	f3 0f 1e fa          	endbr64 
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+    printf("=== %s ===\n", program_name);
+   8:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # f <print_program_info+0xf>
+   f:	48 89 c6             	mov    %rax,%rsi
+  12:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 19 <print_program_info+0x19>
+  19:	48 89 c7             	mov    %rax,%rdi
+  1c:	b8 00 00 00 00       	mov    $0x0,%eax
+  21:	e8 00 00 00 00       	call   26 <print_program_info+0x26>
+    printf("Valid input range: %d ~ %d\n", MIN_N, MAX_N);
+  26:	ba 5c 00 00 00       	mov    $0x5c,%edx
+  2b:	be 00 00 00 00       	mov    $0x0,%esi
+  30:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 37 <print_program_info+0x37>
+  37:	48 89 c7             	mov    %rax,%rdi
+  3a:	b8 00 00 00 00       	mov    $0x0,%eax
+  3f:	e8 00 00 00 00       	call   44 <print_program_info+0x44>
+}
+  44:	90                   	nop
+  45:	5d                   	pop    %rbp
+  46:	c3                   	ret    
+
+0000000000000047 <fib_recursive>:
+
+
+/* 递归实现 Fibonacci 数计算 */
+long long fib_recursive(int n)
+{
+  47:	f3 0f 1e fa          	endbr64 
+  4b:	55                   	push   %rbp
+  4c:	48 89 e5             	mov    %rsp,%rbp
+  4f:	53                   	push   %rbx
+  50:	48 83 ec 18          	sub    $0x18,%rsp
+  54:	89 7d ec             	mov    %edi,-0x14(%rbp)
+    /* 每调用一次递归函数，计数器加 1 */
+    recursive_calls++;
+  57:	48 8b 05 00 00 00 00 	mov    0x0(%rip),%rax        # 5e <fib_recursive+0x17>
+  5e:	48 83 c0 01          	add    $0x1,%rax
+  62:	48 89 05 00 00 00 00 	mov    %rax,0x0(%rip)        # 69 <fib_recursive+0x22>
+
+    /* 递归终止条件 */
+    if (n <= 1)
+  69:	83 7d ec 01          	cmpl   $0x1,-0x14(%rbp)
+  6d:	7f 07                	jg     76 <fib_recursive+0x2f>
+        return n;
+  6f:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  72:	48 98                	cltq   
+  74:	eb 20                	jmp    96 <fib_recursive+0x4f>
+
+    /* 递归计算前两个 Fibonacci 数之和 */
+    return ADD(
+  76:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  79:	83 e8 01             	sub    $0x1,%eax
+  7c:	89 c7                	mov    %eax,%edi
+  7e:	e8 00 00 00 00       	call   83 <fib_recursive+0x3c>
+  83:	48 89 c3             	mov    %rax,%rbx
+  86:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  89:	83 e8 02             	sub    $0x2,%eax
+  8c:	89 c7                	mov    %eax,%edi
+  8e:	e8 00 00 00 00       	call   93 <fib_recursive+0x4c>
+  93:	48 01 d8             	add    %rbx,%rax
+        fib_recursive(n - 1),
+        fib_recursive(n - 2)
+    );
+}
+  96:	48 8b 5d f8          	mov    -0x8(%rbp),%rbx
+  9a:	c9                   	leave  
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ sudo apt update
+[?2004l[sudo] password for enovo: 
+Sorry, try again.
+[sudo] password for enovo: 
+[33m0% [Working][0m[33m0% [Connecting to archive.ubuntu.com] [Connecting to security.ubuntu.com][0m[33m0% [Connecting to archive.ubuntu.com (91.189.91.83)] [Waiting for headers][0m                                                                          Get:1 http://security.ubuntu.com/ubuntu jammy-security InRelease [129 kB]
+[33m                                                                          0% [Waiting for headers] [1 InRelease 5484 B/129 kB 4%][0m                                                       Hit:2 http://archive.ubuntu.com/ubuntu jammy InRelease
+[33m                                                       0% [1 InRelease 27.2 kB/129 kB 21%][0m                                   Get:3 http://archive.ubuntu.com/ubuntu jammy-updates InRelease [128 kB]
+[33m0% [3 InRelease 5484 B/128 kB 4%] [1 InRelease 38.8 kB/129 kB 30%][0m[33m0% [3 InRelease 5484 B/128 kB 4%] [1 InRelease 38.8 kB/129 kB 30%][0m[33m                                                                  0% [3 InRelease 25.8 kB/128 kB 20%][0m[33m0% [3 InRelease 34.4 kB/128 kB 27%][0m                                   Get:4 http://security.ubuntu.com/ubuntu jammy-security/main amd64 Packages [3633 kB]
+[33m0% [3 InRelease 34.4 kB/128 kB 27%] [4 Packages 2655 B/3633 kB 0%][0m[33m0% [3 InRelease 96.7 kB/128 kB 76%] [4 Packages 105 kB/3633 kB 3%][0m[33m                                                                  0% [4 Packages 479 kB/3633 kB 13%][0m[33m0% [Waiting for headers] [4 Packages 1102 kB/3633 kB 30%][0m                                                         Get:5 http://archive.ubuntu.com/ubuntu jammy-backports InRelease [127 kB]
+[33m0% [5 InRelease 2588 B/127 kB 2%] [4 Packages 1102 kB/3633 kB 30%][0m[33m0% [5 InRelease 89.5 kB/127 kB 70%] [4 Packages 1471 kB/3633 kB 40%][0m[33m                                                                    0% [5 InRelease 127 kB/127 kB 100%][0m[33m                                   0% [Working][0m[33m0% [4 Packages store 0 B][0m[33m28% [4 Packages store 0 B] [Waiting for headers] [Waiting for headers][0m                                                                      Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 Packages [3908 kB]
+[33m28% [4 Packages store 0 B] [6 Packages 2655 B/3908 kB 0%] [Waiting for headers][0m                                                                               Get:7 http://security.ubuntu.com/ubuntu jammy-security/main Translation-en [508 kB]
+[33m28% [4 Packages store 0 B] [6 Packages 31.6 kB/3908 kB 1%] [7 Translation-en 25.8 kB/508 kB 5%][0m[33m                                                                                               30% [4 Packages store 0 B] [6 Packages 31.6 kB/3908 kB 1%] [Waiting for headers][0m                                                                                Get:8 http://security.ubuntu.com/ubuntu jammy-security/restricted amd64 Packages [6465 kB]
+[33m30% [4 Packages store 0 B] [6 Packages 31.6 kB/3908 kB 1%] [8 Packages 54.0 kB/6465 kB 1%][0m[33m                                                                                          41% [6 Packages 133 kB/3908 kB 3%] [8 Packages 3727 kB/6465 kB 58%][0m[33m41% [7 Translation-en store 0 B] [6 Packages 133 kB/3908 kB 3%] [8 Packages 3727 kB/6465 kB 58%][0m[33m                                                                                                44% [6 Packages 133 kB/3908 kB 3%] [8 Packages 4807 kB/6465 kB 74%][0m[33m                                                                   49% [6 Packages 133 kB/3908 kB 3%] [Waiting for headers][0m[33m49% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [Waiting for headers][0m                                                                               Get:9 http://security.ubuntu.com/ubuntu jammy-security/restricted Translation-en [1244 kB]
+[33m49% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [9 Translation-en 0 B/1244 kB 0%][0m[33m                                                                                           53% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [Waiting for headers][0m                                                                               Get:10 http://security.ubuntu.com/ubuntu jammy-security/universe amd64 Packages [1053 kB]
+[33m53% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [10 Packages 47.0 kB/1053 kB 4%][0m[33m                                                                                          56% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [Waiting for headers][0m                                                                               Get:11 http://security.ubuntu.com/ubuntu jammy-security/universe Translation-en [237 kB]
+[33m56% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%] [11 Translation-en 42.4 kB/237 kB 18%][0m[33m                                                                                                57% [8 Packages store 0 B] [6 Packages 133 kB/3908 kB 3%][0m[33m58% [8 Packages store 0 B] [6 Packages 511 kB/3908 kB 13%][0m[33m60% [8 Packages store 0 B] [6 Packages 1488 kB/3908 kB 38%]                                                2452 kB/s 5s[0m[33m61% [6 Packages 1595 kB/3908 kB 41%]                                                                       2452 kB/s 5s[0m[33m61% [9 Translation-en store 0 B] [6 Packages 1595 kB/3908 kB 41%]                                          2452 kB/s 5s[0m[33m63% [6 Packages 2325 kB/3908 kB 60%]                                                                       2452 kB/s 4s[0m[33m63% [10 Packages store 0 B] [6 Packages 2325 kB/3908 kB 60%]                                               2452 kB/s 4s[0m[33m67% [6 Packages 3445 kB/3908 kB 88%]                                                                       2452 kB/s 4s[0m[33m67% [11 Translation-en store 0 B] [6 Packages 3445 kB/3908 kB 88%]                                         2452 kB/s 4s[0m[33m67% [6 Packages 3445 kB/3908 kB 88%]                                                                       2452 kB/s 4s[0m[33m68% [Waiting for headers]                                                                                  2452 kB/s 4s[0m                                                                                                                       Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main Translation-en [576 kB]
+[33m68% [12 Translation-en 16.1 kB/576 kB 3%]                                                                  2452 kB/s 4s[0m[33m68% [6 Packages store 0 B] [12 Translation-en 16.1 kB/576 kB 3%]                                           2452 kB/s 4s[0m[33m70% [6 Packages store 0 B] [Waiting for headers]                                                           2452 kB/s 3s[0m                                                                                                                       Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/restricted amd64 Packages [6740 kB]
+[33m70% [6 Packages store 0 B] [13 Packages 34.4 kB/6740 kB 1%]                                                2452 kB/s 3s[0m[33m72% [13 Packages 590 kB/6740 kB 9%]                                                                        2452 kB/s 3s[0m[33m72% [12 Translation-en store 0 B] [13 Packages 590 kB/6740 kB 9%]                                          2452 kB/s 3s[0m[33m78% [13 Packages 2759 kB/6740 kB 41%]                                                                      2452 kB/s 2s[0m[33m89% [13 Packages 6472 kB/6740 kB 96%]                                                                      2452 kB/s 1s[0m[33m90% [Waiting for headers]                                                                                  2452 kB/s 1s[0m                                                                                                                       Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/restricted Translation-en [1294 kB]
+[33m90% [14 Translation-en 49.3 kB/1294 kB 4%]                                                                 2452 kB/s 1s[0m[33m90% [13 Packages store 0 B] [14 Translation-en 49.3 kB/1294 kB 4%]                                         2452 kB/s 1s[0m[33m94% [13 Packages store 0 B] [Waiting for headers]                                                          2452 kB/s 0s[0m                                                                                                                       Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 Packages [1286 kB]
+[33m94% [13 Packages store 0 B] [15 Packages 59.8 kB/1286 kB 5%]                                               2452 kB/s 0s[0m[33m97% [13 Packages store 0 B] [Waiting for headers]                                                          2452 kB/s 0s[0m                                                                                                                       Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/universe Translation-en [325 kB]
+[33m98% [13 Packages store 0 B] [16 Translation-en 65.5 kB/325 kB 20%]                                         2452 kB/s 0s[0m[33m98% [13 Packages store 0 B] [Waiting for headers]                                                          2452 kB/s 0s[0m                                                                                                                       Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse amd64 Packages [86.1 kB]
+[33m98% [13 Packages store 0 B] [17 Packages 32.8 kB/86.1 kB 38%]                                              2452 kB/s 0s[0m[33m99% [13 Packages store 0 B] [Waiting for headers]                                                          2452 kB/s 0s[0m                                                                                                                       Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/multiverse Translation-en [16.6 kB]
+[33m99% [13 Packages store 0 B] [18 Translation-en 16.6 kB/16.6 kB 100%]                                       2452 kB/s 0s[0m[33m99% [13 Packages store 0 B]                                                                                2452 kB/s 0s[0m[33m99% [13 Packages store 0 B]                                                                                2452 kB/s 0s[0m[33m99% [13 Packages store 0 B]                                                                                2452 kB/s 0s[0m[33m99% [Working]                                                                                              2452 kB/s 0s[0m[33m99% [14 Translation-en store 0 B]                                                                          2452 kB/s 0s[0m[33m99% [Working]                                                                                              2452 kB/s 0s[0m[33m99% [15 Packages store 0 B]                                                                                2452 kB/s 0s[0m[33m99% [Working]                                                                                              2452 kB/s 0s[0m[33m99% [16 Translation-en store 0 B]                                                                          2452 kB/s 0s[0m[33m100% [Working]                                                                                             2452 kB/s 0s[0m[33m100% [17 Packages store 0 B]                                                                               2452 kB/s 0s[0m[33m100% [Working]                                                                                             2452 kB/s 0s[0m[33m100% [18 Translation-en store 0 B]                                                                         2452 kB/s 0s[0m[33m100% [Working]                                                                                             2452 kB/s 0s[0m                                                                                                                       Fetched 27.8 MB in 11s (2562 kB/s)
+Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 2%Reading package lists... 2%Reading package lists... 2%Reading package lists... 2%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 3%Reading package lists... 19%Reading package lists... 22%Reading package lists... 22%Reading package lists... 31%Reading package lists... 31%Reading package lists... 32%Reading package lists... 32%Reading package lists... 32%Reading package lists... 32%Reading package lists... 38%Reading package lists... 38%Reading package lists... 43%Reading package lists... 43%Reading package lists... 54%Reading package lists... 55%Reading package lists... 55%Reading package lists... 63%Reading package lists... 63%Reading package lists... 65%Reading package lists... 65%Reading package lists... 66%Reading package lists... 66%Reading package lists... 66%Reading package lists... 66%Reading package lists... 66%Reading package lists... 66%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 67%Reading package lists... 73%Reading package lists... 73%Reading package lists... 78%Reading package lists... 78%Reading package lists... 89%Reading package lists... 89%Reading package lists... 96%Reading package lists... 96%Reading package lists... 98%Reading package lists... 98%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... 99%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+28 packages can be upgraded. Run 'apt list --upgradable' to see them.
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ sudo apt install -y gcc-aarch64-linux-gnu qemu-user
+[?2004lReading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... Done
+Reading state information... 0% Reading state information... 0%Reading state information... Done
+The following additional packages will be installed:
+  binfmt-support binutils-aarch64-linux-gnu cpp-11-aarch64-linux-gnu cpp-aarch64-linux-gnu gcc-11-aarch64-linux-gnu
+  gcc-11-aarch64-linux-gnu-base gcc-11-cross-base gcc-12-cross-base libasan6-arm64-cross libatomic1-arm64-cross
+  libc6-arm64-cross libc6-dev-arm64-cross libgcc-11-dev-arm64-cross libgcc-s1-arm64-cross libgomp1-arm64-cross
+  libhwasan0-arm64-cross libitm1-arm64-cross liblsan0-arm64-cross libstdc++6-arm64-cross libtsan0-arm64-cross
+  libubsan1-arm64-cross liburing2 linux-libc-dev-arm64-cross qemu-user-binfmt
+Suggested packages:
+  binutils-doc gcc-11-locales cpp-doc gcc-11-doc autoconf automake libtool gdb-aarch64-linux-gnu gcc-doc
+The following NEW packages will be installed:
+  binfmt-support binutils-aarch64-linux-gnu cpp-11-aarch64-linux-gnu cpp-aarch64-linux-gnu gcc-11-aarch64-linux-gnu
+  gcc-11-aarch64-linux-gnu-base gcc-11-cross-base gcc-12-cross-base gcc-aarch64-linux-gnu libasan6-arm64-cross
+  libatomic1-arm64-cross libc6-arm64-cross libc6-dev-arm64-cross libgcc-11-dev-arm64-cross libgcc-s1-arm64-cross
+  libgomp1-arm64-cross libhwasan0-arm64-cross libitm1-arm64-cross liblsan0-arm64-cross libstdc++6-arm64-cross
+  libtsan0-arm64-cross libubsan1-arm64-cross liburing2 linux-libc-dev-arm64-cross qemu-user qemu-user-binfmt
+0 upgraded, 26 newly installed, 0 to remove and 28 not upgraded.
+Need to get 62.0 MB of archives.
+After this operation, 271 MB of additional disk space will be used.
+[33m0% [Working][0m[33m0% [Waiting for headers][0m                        Get:1 http://archive.ubuntu.com/ubuntu jammy/main amd64 binfmt-support amd64 2.2.1-2 [55.8 kB]
+[33m0% [1 binfmt-support 14.2 kB/55.8 kB 25%][0m[33m0% [1 binfmt-support 40.3 kB/55.8 kB 72%][0m[33m                                         1% [Working][0m            Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-aarch64-linux-gnu-base amd64 11.4.0-1ubuntu1~22.04.3cross1 [216 kB]
+[33m1% [2 gcc-11-aarch64-linux-gnu-base 2604 B/216 kB 1%][0m[33m1% [2 gcc-11-aarch64-linux-gnu-base 114 kB/216 kB 53%][0m[33m                                                      2% [Waiting for headers][0m                        Get:3 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 cpp-11-aarch64-linux-gnu amd64 11.4.0-1ubuntu1~22.04.3cross1 [9421 kB]
+[33m2% [3 cpp-11-aarch64-linux-gnu 1974 B/9421 kB 0%][0m[33m2% [3 cpp-11-aarch64-linux-gnu 444 kB/9421 kB 5%][0m[33m4% [3 cpp-11-aarch64-linux-gnu 1679 kB/9421 kB 18%][0m[33m8% [3 cpp-11-aarch64-linux-gnu 5056 kB/9421 kB 54%][0m[33m                                                   15% [Waiting for headers][0m                         Get:4 http://archive.ubuntu.com/ubuntu jammy/main amd64 cpp-aarch64-linux-gnu amd64 4:11.2.0-1ubuntu1 [3478 B]
+[33m15% [4 cpp-aarch64-linux-gnu 3478 B/3478 B 100%][0m[33m                                                16% [Working][0m             Get:5 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 binutils-aarch64-linux-gnu amd64 2.38-4ubuntu2.12 [3624 kB]
+[33m16% [5 binutils-aarch64-linux-gnu 1880 B/3624 kB 0%][0m[33m20% [5 binutils-aarch64-linux-gnu 3521 kB/3624 kB 97%][0m[33m                                                      21% [Waiting for headers][0m                         Get:6 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-cross-base all 11.4.0-1ubuntu1~22.04.3cross1 [211 kB]
+[33m21% [6 gcc-11-cross-base 88.6 kB/211 kB 42%][0m[33m                                            22% [Waiting for headers][0m                         Get:7 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-12-cross-base all 12.3.0-1ubuntu1~22.04.3cross1 [211 kB]
+[33m22% [7 gcc-12-cross-base 41.5 kB/211 kB 20%][0m                                            Get:8 http://archive.ubuntu.com/ubuntu jammy/main amd64 libc6-arm64-cross all 2.35-0ubuntu1cross3 [1147 kB]
+[33m23% [8 libc6-arm64-cross 84.2 kB/1147 kB 7%][0m                                            Get:9 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-s1-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [39.8 kB]
+[33m25% [9 libgcc-s1-arm64-cross 39.8 kB/39.8 kB 100%][0m                                                  Get:10 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgomp1-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [122 kB]
+[33m                                                  26% [10 libgomp1-arm64-cross 49.2 kB/122 kB 40%][0m[33m                                                27% [Waiting for headers][0m                         Get:11 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libitm1-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [28.1 kB]
+[33m                         28% [Working][0m             Get:12 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libatomic1-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [10.6 kB]
+             Get:13 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libasan6-arm64-cross all 11.4.0-1ubuntu1~22.04.3cross1 [2226 kB]
+[33m29% [13 libasan6-arm64-cross 46.6 kB/2226 kB 2%][0m[33m                                                32% [Waiting for headers][0m                         Get:14 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 liblsan0-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [1037 kB]
+[33m32% [14 liblsan0-arm64-cross 48.5 kB/1037 kB 5%][0m[33m                                                34% [Waiting for headers][0m                         Get:15 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libtsan0-arm64-cross all 11.4.0-1ubuntu1~22.04.3cross1 [2232 kB]
+[33m34% [15 libtsan0-arm64-cross 21.9 kB/2232 kB 1%][0m[33m                                                38% [Waiting for headers][0m                         Get:16 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libstdc++6-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [616 kB]
+[33m38% [16 libstdc++6-arm64-cross 24.2 kB/616 kB 4%][0m[33m40% [Waiting for headers]                                                                                 3528 kB/s 11s[0m                                                                                                                       Get:17 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libubsan1-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [966 kB]
+[33m40% [17 libubsan1-arm64-cross 34.0 kB/966 kB 4%]                                                          3528 kB/s 11s[0m[33m42% [Waiting for headers]                                                                                 3528 kB/s 11s[0m                                                                                                                       Get:18 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libhwasan0-arm64-cross all 12.3.0-1ubuntu1~22.04.3cross1 [1119 kB]
+[33m42% [18 libhwasan0-arm64-cross 41.0 kB/1119 kB 4%]                                                        3528 kB/s 11s[0m[33m44% [Waiting for headers]                                                                                 3528 kB/s 10s[0m                                                                                                                       Get:19 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libgcc-11-dev-arm64-cross all 11.4.0-1ubuntu1~22.04.3cross1 [1145 kB]
+[33m44% [19 libgcc-11-dev-arm64-cross 21.2 kB/1145 kB 2%]                                                     3528 kB/s 10s[0m[33m44% [19 libgcc-11-dev-arm64-cross 259 kB/1145 kB 23%]                                                     3528 kB/s 10s[0m[33m44% [19 libgcc-11-dev-arm64-cross 277 kB/1145 kB 24%]                                                     3528 kB/s 10s[0m[33m46% [Waiting for headers]                                                                                 3528 kB/s 10s[0m                                                                                                                       Get:20 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 gcc-11-aarch64-linux-gnu amd64 11.4.0-1ubuntu1~22.04.3cross1 [18.8 MB]
+[33m46% [20 gcc-11-aarch64-linux-gnu 61.1 kB/18.8 MB 0%]                                                      3528 kB/s 10s[0m[33m52% [20 gcc-11-aarch64-linux-gnu 4836 kB/18.8 MB 26%]                                                      3528 kB/s 9s[0m[33m52% [20 gcc-11-aarch64-linux-gnu 4840 kB/18.8 MB 26%]                                                      3528 kB/s 9s[0m[33m52% [20 gcc-11-aarch64-linux-gnu 4840 kB/18.8 MB 26%]                                                      3528 kB/s 9s[0m[33m52% [20 gcc-11-aarch64-linux-gnu 4854 kB/18.8 MB 26%]                                                      3528 kB/s 9s[0m[33m52% [20 gcc-11-aarch64-linux-gnu 4886 kB/18.8 MB 26%]                                                      3528 kB/s 9s[0m[33m71% [Waiting for headers]                                                                                  3528 kB/s 5s[0m                                                                                                                       Get:21 http://archive.ubuntu.com/ubuntu jammy/main amd64 gcc-aarch64-linux-gnu amd64 4:11.2.0-1ubuntu1 [1242 B]
+                                                                                                                       Get:22 http://archive.ubuntu.com/ubuntu jammy/main amd64 liburing2 amd64 2.1-2build1 [10.3 kB]
+[33m73% [Waiting for headers]                                                                                  3528 kB/s 5s[0m                                                                                                                       Get:23 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 qemu-user amd64 1:6.2+dfsg-2ubuntu6.31 [16.0 MB]
+[33m73% [23 qemu-user 77.8 kB/16.0 MB 0%]                                                                      3528 kB/s 5s[0m[33m81% [23 qemu-user 6076 kB/16.0 MB 38%]                                                                     3528 kB/s 3s[0m[33m84% [23 qemu-user 8903 kB/16.0 MB 56%]                                                                     3528 kB/s 2s[0m[33m88% [23 qemu-user 11.8 MB/16.0 MB 74%]                                                                     3528 kB/s 1s[0m[33m92% [23 qemu-user 14.7 MB/16.0 MB 92%]                                                                     5915 kB/s 0s[0m[33m94% [Waiting for headers]                                                                                  5915 kB/s 0s[0m                                                                                                                       Get:24 http://archive.ubuntu.com/ubuntu jammy-updates/universe amd64 qemu-user-binfmt amd64 1:6.2+dfsg-2ubuntu6.31 [3584 B]
+                                                                                                                       Get:25 http://archive.ubuntu.com/ubuntu jammy/main amd64 linux-libc-dev-arm64-cross all 5.15.0-22.22cross3 [1216 kB]
+[33m95% [25 linux-libc-dev-arm64-cross 0 B/1216 kB 0%]                                                         5915 kB/s 0s[0m[33m97% [Waiting for headers]                                                                                  5915 kB/s 0s[0m                                                                                                                       Get:26 http://archive.ubuntu.com/ubuntu jammy/main amd64 libc6-dev-arm64-cross all 2.35-0ubuntu1cross3 [1546 kB]
+[33m97% [26 libc6-dev-arm64-cross 20.7 kB/1546 kB 1%]                                                          5915 kB/s 0s[0m[33m100% [Working]                                                                                             5915 kB/s 0s[0m                                                                                                                       Fetched 62.0 MB in 13s (4791 kB/s)
+
+7[0;29r8[1ASelecting previously unselected package binfmt-support.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 49501 files and directories currently installed.)
+Preparing to unpack .../00-binfmt-support_2.2.1-2_amd64.deb ...
+7[30;0f[42m[30mProgress: [  0%][49m[39m [..................................................................................................] 8Unpacking binfmt-support (2.2.1-2) ...
+7[30;0f[42m[30mProgress: [  2%][49m[39m [#.................................................................................................] 8Selecting previously unselected package gcc-11-aarch64-linux-gnu-base:amd64.
+Preparing to unpack .../01-gcc-11-aarch64-linux-gnu-base_11.4.0-1ubuntu1~22.04.3cross1_amd64.deb ...
+7[30;0f[42m[30mProgress: [  3%][49m[39m [##................................................................................................] 8Unpacking gcc-11-aarch64-linux-gnu-base:amd64 (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [  4%][49m[39m [###...............................................................................................] 8Selecting previously unselected package cpp-11-aarch64-linux-gnu.
+Preparing to unpack .../02-cpp-11-aarch64-linux-gnu_11.4.0-1ubuntu1~22.04.3cross1_amd64.deb ...
+7[30;0f[42m[30mProgress: [  5%][49m[39m [####..............................................................................................] 8Unpacking cpp-11-aarch64-linux-gnu (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [  6%][49m[39m [#####.............................................................................................] 8Selecting previously unselected package cpp-aarch64-linux-gnu.
+Preparing to unpack .../03-cpp-aarch64-linux-gnu_4%3a11.2.0-1ubuntu1_amd64.deb ...
+7[30;0f[42m[30mProgress: [  7%][49m[39m [######............................................................................................] 8Unpacking cpp-aarch64-linux-gnu (4:11.2.0-1ubuntu1) ...
+7[30;0f[42m[30mProgress: [  8%][49m[39m [#######...........................................................................................] 8Selecting previously unselected package binutils-aarch64-linux-gnu.
+Preparing to unpack .../04-binutils-aarch64-linux-gnu_2.38-4ubuntu2.12_amd64.deb ...
+7[30;0f[42m[30mProgress: [  9%][49m[39m [########..........................................................................................] 8Unpacking binutils-aarch64-linux-gnu (2.38-4ubuntu2.12) ...
+7[30;0f[42m[30mProgress: [ 10%][49m[39m [#########.........................................................................................] 8Selecting previously unselected package gcc-11-cross-base.
+Preparing to unpack .../05-gcc-11-cross-base_11.4.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 10%][49m[39m [##########........................................................................................] 8Unpacking gcc-11-cross-base (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 11%][49m[39m [###########.......................................................................................] 8Selecting previously unselected package gcc-12-cross-base.
+Preparing to unpack .../06-gcc-12-cross-base_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 12%][49m[39m [############......................................................................................] 8Unpacking gcc-12-cross-base (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 13%][49m[39m [#############.....................................................................................] 8Selecting previously unselected package libc6-arm64-cross.
+Preparing to unpack .../07-libc6-arm64-cross_2.35-0ubuntu1cross3_all.deb ...
+7[30;0f[42m[30mProgress: [ 14%][49m[39m [#############.....................................................................................] 8Unpacking libc6-arm64-cross (2.35-0ubuntu1cross3) ...
+7[30;0f[42m[30mProgress: [ 15%][49m[39m [##############....................................................................................] 8Selecting previously unselected package libgcc-s1-arm64-cross.
+Preparing to unpack .../08-libgcc-s1-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 16%][49m[39m [###############...................................................................................] 8Unpacking libgcc-s1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 17%][49m[39m [################..................................................................................] 8Selecting previously unselected package libgomp1-arm64-cross.
+Preparing to unpack .../09-libgomp1-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 18%][49m[39m [#################.................................................................................] 8Unpacking libgomp1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 19%][49m[39m [##################................................................................................] 8Selecting previously unselected package libitm1-arm64-cross.
+Preparing to unpack .../10-libitm1-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 20%][49m[39m [###################...............................................................................] 8Unpacking libitm1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+Selecting previously unselected package libatomic1-arm64-cross.
+Preparing to unpack .../11-libatomic1-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 22%][49m[39m [#####################.............................................................................] 8Unpacking libatomic1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 23%][49m[39m [######################............................................................................] 8Selecting previously unselected package libasan6-arm64-cross.
+Preparing to unpack .../12-libasan6-arm64-cross_11.4.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 24%][49m[39m [#######################...........................................................................] 8Unpacking libasan6-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 25%][49m[39m [########################..........................................................................] 8Selecting previously unselected package liblsan0-arm64-cross.
+Preparing to unpack .../13-liblsan0-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 26%][49m[39m [#########################.........................................................................] 8Unpacking liblsan0-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 27%][49m[39m [##########################........................................................................] 8Selecting previously unselected package libtsan0-arm64-cross.
+Preparing to unpack .../14-libtsan0-arm64-cross_11.4.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 28%][49m[39m [###########################.......................................................................] 8Unpacking libtsan0-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 29%][49m[39m [###########################.......................................................................] 8Selecting previously unselected package libstdc++6-arm64-cross.
+Preparing to unpack .../15-libstdc++6-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 30%][49m[39m [############################......................................................................] 8Unpacking libstdc++6-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 30%][49m[39m [#############################.....................................................................] 8Selecting previously unselected package libubsan1-arm64-cross.
+Preparing to unpack .../16-libubsan1-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 31%][49m[39m [##############################....................................................................] 8Unpacking libubsan1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 32%][49m[39m [###############################...................................................................] 8Selecting previously unselected package libhwasan0-arm64-cross.
+Preparing to unpack .../17-libhwasan0-arm64-cross_12.3.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 33%][49m[39m [################################..................................................................] 8Unpacking libhwasan0-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 34%][49m[39m [#################################.................................................................] 8Selecting previously unselected package libgcc-11-dev-arm64-cross.
+Preparing to unpack .../18-libgcc-11-dev-arm64-cross_11.4.0-1ubuntu1~22.04.3cross1_all.deb ...
+7[30;0f[42m[30mProgress: [ 35%][49m[39m [##################################................................................................] 8Unpacking libgcc-11-dev-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 36%][49m[39m [###################################...............................................................] 8Selecting previously unselected package gcc-11-aarch64-linux-gnu.
+Preparing to unpack .../19-gcc-11-aarch64-linux-gnu_11.4.0-1ubuntu1~22.04.3cross1_amd64.deb ...
+7[30;0f[42m[30mProgress: [ 37%][49m[39m [####################################..............................................................] 8Unpacking gcc-11-aarch64-linux-gnu (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 38%][49m[39m [#####################################.............................................................] 8Selecting previously unselected package gcc-aarch64-linux-gnu.
+Preparing to unpack .../20-gcc-aarch64-linux-gnu_4%3a11.2.0-1ubuntu1_amd64.deb ...
+7[30;0f[42m[30mProgress: [ 39%][49m[39m [######################################............................................................] 8Unpacking gcc-aarch64-linux-gnu (4:11.2.0-1ubuntu1) ...
+7[30;0f[42m[30mProgress: [ 40%][49m[39m [#######################################...........................................................] 8Selecting previously unselected package liburing2:amd64.
+Preparing to unpack .../21-liburing2_2.1-2build1_amd64.deb ...
+Unpacking liburing2:amd64 (2.1-2build1) ...
+7[30;0f[42m[30mProgress: [ 42%][49m[39m [#########################################.........................................................] 8Selecting previously unselected package qemu-user.
+Preparing to unpack .../22-qemu-user_1%3a6.2+dfsg-2ubuntu6.31_amd64.deb ...
+7[30;0f[42m[30mProgress: [ 43%][49m[39m [##########################################........................................................] 8Unpacking qemu-user (1:6.2+dfsg-2ubuntu6.31) ...
+7[30;0f[42m[30mProgress: [ 44%][49m[39m [##########################################........................................................] 8Selecting previously unselected package qemu-user-binfmt.
+Preparing to unpack .../23-qemu-user-binfmt_1%3a6.2+dfsg-2ubuntu6.31_amd64.deb ...
+7[30;0f[42m[30mProgress: [ 45%][49m[39m [###########################################.......................................................] 8Unpacking qemu-user-binfmt (1:6.2+dfsg-2ubuntu6.31) ...
+7[30;0f[42m[30mProgress: [ 46%][49m[39m [############################################......................................................] 8Selecting previously unselected package linux-libc-dev-arm64-cross.
+Preparing to unpack .../24-linux-libc-dev-arm64-cross_5.15.0-22.22cross3_all.deb ...
+7[30;0f[42m[30mProgress: [ 47%][49m[39m [#############################################.....................................................] 8Unpacking linux-libc-dev-arm64-cross (5.15.0-22.22cross3) ...
+7[30;0f[42m[30mProgress: [ 48%][49m[39m [##############################################....................................................] 8Selecting previously unselected package libc6-dev-arm64-cross.
+Preparing to unpack .../25-libc6-dev-arm64-cross_2.35-0ubuntu1cross3_all.deb ...
+7[30;0f[42m[30mProgress: [ 49%][49m[39m [###############################################...................................................] 8Unpacking libc6-dev-arm64-cross (2.35-0ubuntu1cross3) ...
+7[30;0f[42m[30mProgress: [ 50%][49m[39m [################################################..................................................] 8Setting up gcc-11-aarch64-linux-gnu-base:amd64 (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 50%][49m[39m [#################################################.................................................] 87[30;0f[42m[30mProgress: [ 51%][49m[39m [##################################################................................................] 8Setting up gcc-12-cross-base (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 52%][49m[39m [###################################################...............................................] 87[30;0f[42m[30mProgress: [ 53%][49m[39m [####################################################..............................................] 8Setting up binutils-aarch64-linux-gnu (2.38-4ubuntu2.12) ...
+7[30;0f[42m[30mProgress: [ 54%][49m[39m [#####################################################.............................................] 87[30;0f[42m[30mProgress: [ 55%][49m[39m [######################################################............................................] 8Setting up libc6-arm64-cross (2.35-0ubuntu1cross3) ...
+7[30;0f[42m[30mProgress: [ 56%][49m[39m [#######################################################...........................................] 87[30;0f[42m[30mProgress: [ 57%][49m[39m [#######################################################...........................................] 8Setting up binfmt-support (2.2.1-2) ...
+7[30;0f[42m[30mProgress: [ 58%][49m[39m [########################################################..........................................] 8update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+update-binfmts: warning: unable to open /proc/sys/fs/binfmt_misc/status for writing: Read-only file system
+Created symlink /etc/systemd/system/multi-user.target.wants/binfmt-support.service → /lib/systemd/system/binfmt-support.service.
+7[30;0f[42m[30mProgress: [ 59%][49m[39m [#########################################################.........................................] 8Setting up libitm1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 60%][49m[39m [##########################################################........................................] 8Setting up linux-libc-dev-arm64-cross (5.15.0-22.22cross3) ...
+7[30;0f[42m[30mProgress: [ 62%][49m[39m [############################################################......................................] 87[30;0f[42m[30mProgress: [ 63%][49m[39m [#############################################################.....................................] 8Setting up cpp-11-aarch64-linux-gnu (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 64%][49m[39m [##############################################################....................................] 87[30;0f[42m[30mProgress: [ 65%][49m[39m [###############################################################...................................] 8Setting up gcc-11-cross-base (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 66%][49m[39m [################################################################..................................] 87[30;0f[42m[30mProgress: [ 67%][49m[39m [#################################################################.................................] 8Setting up liburing2:amd64 (2.1-2build1) ...
+7[30;0f[42m[30mProgress: [ 68%][49m[39m [##################################################################................................] 87[30;0f[42m[30mProgress: [ 69%][49m[39m [###################################################################...............................] 8Setting up libgcc-s1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 70%][49m[39m [####################################################################..............................] 87[30;0f[42m[30mProgress: [ 70%][49m[39m [#####################################################################.............................] 8Setting up libatomic1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 71%][49m[39m [######################################################################............................] 87[30;0f[42m[30mProgress: [ 72%][49m[39m [######################################################################............................] 8Setting up liblsan0-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 73%][49m[39m [#######################################################################...........................] 87[30;0f[42m[30mProgress: [ 74%][49m[39m [########################################################################..........................] 8Setting up libgomp1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 75%][49m[39m [#########################################################################.........................] 87[30;0f[42m[30mProgress: [ 76%][49m[39m [##########################################################################........................] 8Setting up libasan6-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 77%][49m[39m [###########################################################################.......................] 87[30;0f[42m[30mProgress: [ 78%][49m[39m [############################################################################......................] 8Setting up libtsan0-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 79%][49m[39m [#############################################################################.....................] 87[30;0f[42m[30mProgress: [ 80%][49m[39m [##############################################################################....................] 8Setting up libhwasan0-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 82%][49m[39m [################################################################################..................] 8Setting up libc6-dev-arm64-cross (2.35-0ubuntu1cross3) ...
+7[30;0f[42m[30mProgress: [ 83%][49m[39m [#################################################################################.................] 87[30;0f[42m[30mProgress: [ 84%][49m[39m [##################################################################################................] 8Setting up libstdc++6-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 85%][49m[39m [###################################################################################...............] 87[30;0f[42m[30mProgress: [ 86%][49m[39m [####################################################################################..............] 8Setting up cpp-aarch64-linux-gnu (4:11.2.0-1ubuntu1) ...
+7[30;0f[42m[30mProgress: [ 87%][49m[39m [####################################################################################..............] 87[30;0f[42m[30mProgress: [ 88%][49m[39m [#####################################################################################.............] 8Setting up qemu-user (1:6.2+dfsg-2ubuntu6.31) ...
+7[30;0f[42m[30mProgress: [ 89%][49m[39m [######################################################################################............] 87[30;0f[42m[30mProgress: [ 90%][49m[39m [#######################################################################################...........] 8Setting up qemu-user-binfmt (1:6.2+dfsg-2ubuntu6.31) ...
+7[30;0f[42m[30mProgress: [ 90%][49m[39m [########################################################################################..........] 87[30;0f[42m[30mProgress: [ 91%][49m[39m [#########################################################################################.........] 8Setting up libubsan1-arm64-cross (12.3.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 92%][49m[39m [##########################################################################################........] 87[30;0f[42m[30mProgress: [ 93%][49m[39m [###########################################################################################.......] 8Setting up libgcc-11-dev-arm64-cross (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 94%][49m[39m [############################################################################################......] 87[30;0f[42m[30mProgress: [ 95%][49m[39m [#############################################################################################.....] 8Setting up gcc-11-aarch64-linux-gnu (11.4.0-1ubuntu1~22.04.3cross1) ...
+7[30;0f[42m[30mProgress: [ 96%][49m[39m [##############################################################################################....] 87[30;0f[42m[30mProgress: [ 97%][49m[39m [###############################################################################################...] 8Setting up gcc-aarch64-linux-gnu (4:11.2.0-1ubuntu1) ...
+7[30;0f[42m[30mProgress: [ 98%][49m[39m [################################################################################################..] 87[30;0f[42m[30mProgress: [ 99%][49m[39m [#################################################################################################.] 8Processing triggers for man-db (2.10.2-1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.15) ...
+
+7[0;30r8[1A[J[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ aarch64-linux-gnu-gcc -S fib.c -o fib_arm.s
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ aarch64-linux-gnu-gcc -c fib_arm.s -o fib_arm.o
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ aarch64-linux-gnu-objdump -d fib_arm.o | head -40
+[?2004l
+fib_arm.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <print_program_info>:
+   0:	a9bf7bfd 	stp	x29, x30, [sp, #-16]!
+   4:	910003fd 	mov	x29, sp
+   8:	90000000 	adrp	x0, 0 <print_program_info>
+   c:	91000000 	add	x0, x0, #0x0
+  10:	f9400000 	ldr	x0, [x0]
+  14:	aa0003e1 	mov	x1, x0
+  18:	90000000 	adrp	x0, 0 <print_program_info>
+  1c:	91000000 	add	x0, x0, #0x0
+  20:	94000000 	bl	0 <printf>
+  24:	52800b82 	mov	w2, #0x5c                  	// #92
+  28:	52800001 	mov	w1, #0x0                   	// #0
+  2c:	90000000 	adrp	x0, 0 <print_program_info>
+  30:	91000000 	add	x0, x0, #0x0
+  34:	94000000 	bl	0 <printf>
+  38:	d503201f 	nop
+  3c:	a8c17bfd 	ldp	x29, x30, [sp], #16
+  40:	d65f03c0 	ret
+
+0000000000000044 <fib_recursive>:
+  44:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+  48:	910003fd 	mov	x29, sp
+  4c:	f9000bf3 	str	x19, [sp, #16]
+  50:	b9002fe0 	str	w0, [sp, #44]
+  54:	90000000 	adrp	x0, 0 <print_program_info>
+  58:	91000000 	add	x0, x0, #0x0
+  5c:	f9400000 	ldr	x0, [x0]
+  60:	91000401 	add	x1, x0, #0x1
+  64:	90000000 	adrp	x0, 0 <print_program_info>
+  68:	91000000 	add	x0, x0, #0x0
+  6c:	f9000001 	str	x1, [x0]
+  70:	b9402fe0 	ldr	w0, [sp, #44]
+  74:	7100041f 	cmp	w0, #0x1
+  78:	5400006c 	b.gt	84 <fib_recursive+0x40>
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ aarch64-linux-gnu-readelf -h fib_arm.o | grep -E "Machine|Type"
+[?2004l  [01;31m[KType[m[K:                              REL (Relocatable file)
+  [01;31m[KMachine[m[K:                           AArch64
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ aarch64-linux-gnu-gcc fib.c -o fib_arm -static
+[?2004l[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ file fib_arm
+[?2004lfib_arm: ELF 64-bit LSB executable, ARM aarch64, version 1 (GNU/Linux), statically linked, BuildID[sha1]=c638df1425b438b72bf99d711479a105f74dcd25, for GNU/Linux 3.7.0, not stripped
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ echo 10 | qemu-aarch64 ./fib_arm
+[?2004l=== Fibonacci Comparison Program ===
+Valid input range: 0 ~ 92
+Enter n: Recursive result: 55
+Iterative result: 55
+Recursive function calls: 177
+The two implementations produce the same result.
+[?2004h]0;enovo@DESKTOP-PKH3ROC: ~/compiler_lab/prework/my_asm_link[01;32menovo@DESKTOP-PKH3ROC[00m:[01;34m~/compiler_lab/prework/my_asm_link[00m$ exit
+[?2004lexit
+
+Script done on 2026-10-08 16:54:08+08:00 [COMMAND_EXIT_CODE="0"]
